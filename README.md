@@ -5,7 +5,7 @@ Docker mini-training course for the SP23 DS460 class.
 
 
 
-docker run docker/whalesay cowsay you are awesome
+`docker run docker/whalesay cowsay you are awesome`
 
 
 #--------------------------------
@@ -15,7 +15,7 @@ docker run docker/whalesay cowsay you are awesome
 
 
 
-print("Hello, World!")
+`print("Hello, World!")`
 
 
 
@@ -27,7 +27,7 @@ print("Hello, World!")
 
 
 
-scikit-learn==1.2.0
+`scikit-learn==1.2.0`
 
 
 #--------------------
@@ -36,22 +36,22 @@ scikit-learn==1.2.0
 
 
 
-FROM python:3.9
+`FROM python:3.9`
 
 ##### Set the working directory within the container
-WORKDIR /app
+`WORKDIR /app`
 
 #####  copy the Python script into the container
-COPY dock_test.py .
+`COPY dock_test.py .`
 
 ##### Install any dependencies required by your Python script
 ##### For example, if you have a requirements.txt file, you can uncomment the following line
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+`COPY requirements.txt .`
+`RUN pip install -r requirements.txt`
 
 ##### Define the command to run your Python script
-CMD ["python", "hello_docker.py"]
+`CMD ["python", "hello_docker.py"]`
 
 
 
@@ -62,7 +62,7 @@ CMD ["python", "hello_docker.py"]
 
 
 
-docker build -t helloimage:latest .
+`docker build -t helloimage:latest .`
 
 
 
@@ -71,7 +71,7 @@ docker build -t helloimage:latest .
 
 ####  Create the Container
 
-docker run --name hellocontainer helloimage:latest
+`docker run --name hellocontainer helloimage:latest`
 
 
 docker run --name hellocontainer helloimage:latest
