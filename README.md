@@ -1,26 +1,41 @@
 # docker-training
-
+Docker mini-training course for the SP23 DS460 class.
 
 WhaleSay
-#######
+
+
+
 docker run docker/whalesay cowsay you are awesome
 
-#################################
+
+#--------------------------------
+
 Create the "hello_docker.py" file
-#################################
+
+
+
+
 print("Hello, World!")
 
 
-################################
+
+
+
+#------------------------------
+
 Create the requirements.txt file
-################################
+
+
 
 scikit-learn==1.2.0
 
 
-######################
+#--------------------
+
 Create the Docker File
-######################
+
+
+
 FROM python:3.9
 
 # Set the working directory within the container
@@ -40,21 +55,24 @@ CMD ["python", "hello_docker.py"]
 
 
 
-################
+#---------------
+
 Create the Image
-################
+
+
 
 docker build -t helloimage:latest .
 
 
 
 
-####################
+#-------------------
+
 Create the Container
-####################
+
 
 docker run --name hellocontainer helloimage:latest
 
-Docker mini-training course for the SP23 DS460 class.
+
 
 
