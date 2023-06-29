@@ -1,0 +1,120 @@
+---
+title: "Docker Tutorial: Creating a Simple Machine Learning Model"
+date: '6-29-2023'
+
+output:
+  html_document:
+    theme: cerulean
+editor: visual
+---
+
+
+This tutorial is based on training found [here](https://www.datacamp.com/tutorial/docker-for-data-science-introduction). You must have previously installed docker and its dependencies. If you have not done this, please see: 
+
+* [this site for Linux](https://docs.docker.com/desktop/install/linux-install/)
+
+* [this site for Windows](https://docs.docker.com/desktop/install/windows-install/)
+
+* or [this site for Mac](https://docs.docker.com/desktop/install/mac-install/).
+
+To begin,let's write our model and save it as a .py file. For this example, save it in a predisignated folder and title it `"iris_classification.py."` This file is essentially the cargo that will be shipped on the Docker container. 
+
+
+```{r, eval=FALSE}
+# Load the libraries
+
+from sklearn.datasets import load_iris
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.linear_model import LogisticRegression
+
+from sklearn.metrics import accuracy_score
+
+
+# Load the iris dataset
+
+iris = load_iris()
+
+X = iris.data
+
+y = iris.target
+
+
+# Split the data
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+
+# Train a logistic regression model
+
+clf = LogisticRegression()
+
+clf.fit(X_train, y_train)
+
+
+# Make predictions
+
+y_pred = clf.predict(X_test)
+
+
+# Print the accuracy of the model
+
+accuracy_score = accuracy_score(y_test, y_pred)
+
+print(f'Accuracy: {accuracy_score}')
+
+```
+
+
+Now we're ready to start making our Docker image. The first thing we need is to create a `requirements.txt` file to set up the environment. For this simple example, we will only be write the following line in a notebook and save it in our designated folder as a .txt file. 
+
+
+```{r, eval=FALSE}
+scikit-learn==1.2.0
+```
+
+Next, we're going to create our `Dockerfile.` To do this, copy the following code in blank notebook and save it as a `"Dockerfile"`. 
+
+```{r eval = FALSE}
+FROM python:3.9
+
+WORKDIR /src
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["python","iris_classification.py"]
+```
+
+
+When you save this file, it's important that you use quotations and that there is no extension on the file name. You will will need to save this in the same folder as your .txt and .py files. 
+
+
+Now I'll demonstrate how to run this from a Windows perspective. 
+
+Navigate to the folder in your file explorer that contains the three files we've created. Right click and choose "Open in Terminal." This will open the command prompt line in this location. 
+
+Run this code in the terminal to create an image. 
+
+```{r eval = FALSE}
+  docker build -t myimage:latest .
+```
+
+
+This image is the recipe for running a container with the machine learning script. 
+
+To run a container, use this code in your terminal. 
+
+```{r eval = FALSE}
+docker run --name mycontainer myimage:latest
+```
+
+
+
+
+
+
